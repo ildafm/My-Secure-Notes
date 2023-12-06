@@ -5,13 +5,9 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>S Notes | Register</title>
+    <title>S Notes | Reset Password</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
-
-    <!-- Favicons -->
-    <link href="../template/img/favicon.png" rel="icon">
-    <link href="../template/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -34,7 +30,6 @@
 </head>
 
 <body>
-
     <main>
         <div class="container">
 
@@ -45,7 +40,7 @@
                         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
                             <div class="d-flex justify-content-center py-4">
-                                <a href="index.html" class="logo d-flex align-items-center w-auto">
+                                <a href="#" class="logo d-flex align-items-center w-auto">
                                     <img src="../template/img/logo.png" alt="">
                                     <span class="d-none d-lg-block">SNotes</span>
                                 </a>
@@ -56,104 +51,73 @@
                                 <div class="card-body">
 
                                     <div class="pt-4 pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">Buat Akun Baru</h5>
-                                        <p class="text-center small">Silahkan isi kolom pendaftaran berikut ini</p>
+                                        <h5 class="card-title text-center pb-0 fs-4">Lupa password akun?</h5>
+                                        <p class="text-center small"> Ketikan alamat email anda untuk mendapatkan tautan
+                                            reset password.
+                                        </p>
                                     </div>
 
-                                    <form class="row g-3 needs-validation" novalidate method="POST"
-                                        action="{{ route('register') }}">
+                                    <!-- Validation Errors -->
+                                    {{-- <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
+
+                                    @if (session('status'))
+                                        @php
+                                            $status = session('status');
+                                            $alertClass = $status === 'success' ? 'alert-success' : 'alert-danger';
+                                            $iconClass = $status === 'success' ? 'bi-check-circle' : 'bi-exclamation-octagon';
+                                            $message = $status === 'success' ? 'Password reset link sent successfully.' : 'Failed to send password reset link.';
+                                        @endphp
+
+                                        <div class="alert {{ $alertClass }} alert-dismissible fade show"
+                                            role="alert">
+                                            <i class="bi {{ $iconClass }} me-1"></i>
+                                            {{ $message }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                    @endif
+
+                                    {{-- start form login --}}
+                                    <form method="POST" class="row g-3" action="{{ route('password.email') }}"
+                                        onsubmit="document.getElementById('btn_submit').disabled = true">
                                         @csrf
 
-                                        {{-- kolom username --}}
+                                        {{-- email label --}}
                                         <div class="col-12">
-                                            <label for="yourName" class="form-label">Username</label>
-                                            <input type="text" name="name" class="form-control" id="yourName"
-                                                value="{{ old('name') }}" required autofocus maxlength="255"
-                                                placeholder="Username, maximal 255 karakter">
-                                            <div class="invalid-feedback" id="nameEmptyError">Username tidak boleh
-                                                kosong
-                                            </div>
-                                        </div>
+                                            <label for="email" class="form-label">Email</label>
+                                            <div class="input-group">
+                                                <input type="email" name="email"
+                                                    class="form-control @error('email') is-invalid @enderror"
+                                                    id="yourEmail" required placeholder="Masukan Email Anda" autofocus>
 
-                                        {{-- kolom email --}}
-                                        <div class="col-12">
-                                            <label for="yourEmail" class="form-label">Email</label>
-                                            <input type="email" name="email" maxlength="255"
-                                                class="form-control @error('email') is-invalid @enderror" id="yourEmail"
-                                                value="{{ old('email') }}" placeholder="Email, maximal 255 karakter"
-                                                required>
-
-                                            <div class="invalid-feedback" id="emailEmptyError" style="display: none;">
-                                                Kolom email tidak boleh kosong.
-                                            </div>
-                                            <div class="invalid-feedback" id="emailNotValidError"
-                                                style="display: none;">Silahkan masukan
-                                                alamat email yang valid.
-                                            </div>
-
-                                            @error('email')
-                                                <div id="wrongEmailOrPasswordError" class="invalid-feedback">
-                                                    {{ $message }}
+                                                <div class="invalid-feedback" id="emailEmptyError"
+                                                    style="display: none;">Kolom email tidak boleh kosong.
                                                 </div>
-                                            @enderror
-                                        </div>
+                                                <div class="invalid-feedback" id="emailNotValidError"
+                                                    style="display: none;">Silahkan masukan
+                                                    alamat email yang valid.
+                                                </div>
 
-                                        {{-- kolom password --}}
-                                        <div class="col-12">
-                                            <label for="yourPassword" class="form-label">Password</label>
-                                            <input type="password" name="password" maxlength="255" class="form-control"
-                                                placeholder="Password, maximal 255 karakter" id="yourPassword" required>
-                                            <div class="invalid-feedback" id="passwordEmptyError">
-                                                Kolom password tidak boleh kosong.
-                                            </div>
-                                            <div class="invalid-feedback" id="passwordLengthError"
-                                                style="display: none;">
-                                                Password tidak boleh kurang dari 8 karakter.
-                                            </div>
-                                        </div>
-
-                                        {{-- kolom konfirmasi password --}}
-                                        <div class="col-12">
-                                            <label for="yourPasswordCofirmation" class="form-label">Konfirmasi
-                                                Password</label>
-                                            <input type="password" name="password_confirmation" class="form-control"
-                                                maxlength="255" id="yourPasswordCofirmation"
-                                                placeholder="Ketikan ulang password anda" required>
-                                            <div class="invalid-feedback" id="k_passwordEmptyError">
-                                                Kolom konfirmasi password tidak boleh kosong.
-                                            </div>
-                                            <div class="invalid-feedback" id="k_passwordLengthError"
-                                                style="display: none;">
-                                                Konfirmasi password tidak boleh kurang dari 8 karakter.
-                                            </div>
-                                            <div class="invalid-feedback" id="k_passwordMatchError"
-                                                style="display: none;">
-                                                Konfirmasi password harus sama dengan password anda.
-                                            </div>
-                                        </div>
-
-                                        {{-- centang i agree --}}
-                                        <div class="col-12">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name="terms" type="checkbox"
-                                                    value="" id="acceptTerms" required>
-                                                <label class="form-check-label" for="acceptTerms">I agree and accept
-                                                    the
-                                                    <a href="#">terms and conditions</a></label>
-                                                <div class="invalid-feedback">You must agree before submitting.</div>
+                                                @error('email')
+                                                    <div id="wrongEmailOrPasswordError" class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
 
                                         <div class="col-12">
                                             <button class="btn btn-primary w-100" type="submit" id="btn_submit"
-                                                disabled>Create
-                                                Account</button>
+                                                disabled>Send to email</button>
                                         </div>
+
                                         <div class="col-12">
-                                            <p class="small mb-0">Already have an account? <a href="/login">Log
-                                                    in</a></p>
+                                            <p class="small mb-0">Don't have account? <a href="/register">Create an
+                                                    account</a></p>
                                         </div>
+
                                     </form>
+                                    {{-- end form login --}}
 
                                 </div>
                             </div>
@@ -165,6 +129,7 @@
             </section>
 
         </div>
+
     </main><!-- End #main -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
@@ -172,59 +137,16 @@
 
     {{-- global variabel --}}
     <script>
-        var wrongEmailOrPasswordError = document.getElementById('wrongEmailOrPasswordError');
         var btnSubmit = document.getElementById('btn_submit');
 
-        let status_username = false;
         let status_email = false;
-        let status_password = false;
-        let status_k_password = false;
-        let status_term = false;
 
         function checkBtnSubmit() {
-            if (status_username == true && status_email == true && status_password == true && status_k_password == true &&
-                status_term == true) {
+            if (status_email) {
                 btnSubmit.disabled = false;
             } else {
                 btnSubmit.disabled = true;
             }
-        }
-    </script>
-
-    {{-- username error message --}}
-    <script>
-        var nameInput = document.getElementById('yourName');
-        var nameEmptyError = document.getElementById('nameEmptyError');
-
-        // name error message management
-        nameInput.addEventListener('input', function() {
-            var name = this.value;
-
-            // Cek jika name kosong
-            if (name.trim() === '') {
-                nameEmptyError.style.display = 'block';
-
-                nameInput.classList.remove('is-valid');
-                nameInput.classList.add('is-invalid');
-
-                status_username = false;
-                checkBtnSubmit();
-            } else {
-                nameEmptyError.style.display = 'none';
-
-                nameInput.classList.remove('is-invalid');
-                nameInput.classList.add('is-valid');
-
-                status_username = true;
-                checkBtnSubmit();
-            }
-
-        });
-
-        function isValidEmail(email) {
-            // Gunakan regular expression untuk memeriksa apakah email valid
-            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
         }
     </script>
 
@@ -278,11 +200,6 @@
 
                 status_email = true;
                 checkBtnSubmit()
-
-                if (wrongEmailOrPasswordError) {
-                    wrongEmailOrPasswordError.style.display = 'none';
-                }
-
             }
 
         });
@@ -292,198 +209,6 @@
             var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
         }
-    </script>
-
-    {{-- password error massage --}}
-    <script>
-        var passwordInput = document.getElementById('yourPassword');
-        var passwordLengthError = document.getElementById('passwordLengthError');
-        var passwordEmptyError = document.getElementById('passwordEmptyError');
-
-        var confirmPasswordLengthError = document.getElementById('k_passwordLengthError');
-        var confirmPasswordEmptyError = document.getElementById('k_passwordEmptyError');
-        var confirmPasswordMatchError = document.getElementById('k_passwordMatchError');
-
-
-        // password error message management
-        passwordInput.addEventListener('input', function() {
-            var password = this.value;
-            var confirmPasswordInput = document.getElementById('yourPasswordCofirmation');
-
-            // Cek jika password kosong
-            if (password.trim() === '') {
-
-                passwordEmptyError.style.display = 'block';
-
-                passwordLengthError.style.display = 'none';
-
-                passwordInput.classList.remove('is-valid');
-                passwordInput.classList.add('is-invalid');
-
-                status_password = false;
-                checkBtnSubmit()
-
-                if (wrongEmailOrPasswordError) {
-                    wrongEmailOrPasswordError.style.display = 'none';
-                }
-
-            } else if (password.length < 8) {
-
-                passwordEmptyError.style.display = 'none';
-
-                passwordLengthError.style.display = 'block';
-
-                passwordInput.classList.remove('is-valid');
-                passwordInput.classList.add('is-invalid');
-
-                status_password = false;
-                checkBtnSubmit()
-
-                if (wrongEmailOrPasswordError) {
-                    wrongEmailOrPasswordError.style.display = 'none';
-                }
-
-            } else {
-                passwordEmptyError.style.display = 'none';
-
-                passwordLengthError.style.display = 'none';
-
-                passwordInput.classList.remove('is-invalid');
-                passwordInput.classList.add('is-valid');
-
-                status_password = true;
-                checkBtnSubmit();
-
-                if (wrongEmailOrPasswordError) {
-                    wrongEmailOrPasswordError.style.display = 'none';
-                }
-            }
-            // jika password diubah setelah mengisi konfirmasi password
-            if (confirmPasswordInput.value != password) {
-
-                confirmPasswordLengthError.style.display = 'none';
-
-                confirmPasswordEmptyError.style.display = 'none';
-
-                confirmPasswordMatchError.style.display = 'block';
-
-                confirmPasswordInput.classList.remove('is-valid');
-                confirmPasswordInput.classList.add('is-invalid');
-
-                status_k_password = false;
-                checkBtnSubmit();
-            }
-
-        });
-    </script>
-
-    {{-- confirm password error massage --}}
-    <script>
-        var confirmPasswordInput = document.getElementById('yourPasswordCofirmation');
-        var confirmPasswordLengthError = document.getElementById('k_passwordLengthError');
-        var confirmPasswordEmptyError = document.getElementById('k_passwordEmptyError');
-        var confirmPasswordMatchError = document.getElementById('k_passwordMatchError');
-
-        var passwordLengthError = document.getElementById('passwordLengthError');
-        var passwordEmptyError = document.getElementById('passwordEmptyError');
-
-        // password error message management
-        confirmPasswordInput.addEventListener('input', function() {
-            var password = document.getElementById('yourPassword');
-
-            var confirm_password = this.value;
-
-            // Cek jika password kosong
-            if (confirm_password.trim() === '') {
-
-                confirmPasswordLengthError.style.display = 'none';
-
-                confirmPasswordEmptyError.style.display = 'block';
-
-                confirmPasswordMatchError.style.display = 'none';
-
-                confirmPasswordInput.classList.remove('is-valid');
-                confirmPasswordInput.classList.add('is-invalid');
-
-                status_k_password = false;
-                checkBtnSubmit()
-
-                if (wrongEmailOrPasswordError) {
-                    wrongEmailOrPasswordError.style.display = 'none';
-                }
-
-            } else if (confirm_password.length < 8) {
-
-                confirmPasswordLengthError.style.display = 'block';
-
-                confirmPasswordEmptyError.style.display = 'none';
-
-                confirmPasswordMatchError.style.display = 'none';
-
-                confirmPasswordInput.classList.remove('is-valid');
-                confirmPasswordInput.classList.add('is-invalid');
-
-                status_k_password = false;
-                checkBtnSubmit()
-
-                if (wrongEmailOrPasswordError) {
-                    wrongEmailOrPasswordError.style.display = 'none';
-                }
-
-            } else if (confirm_password != password.value) {
-
-                confirmPasswordLengthError.style.display = 'none';
-
-                confirmPasswordEmptyError.style.display = 'none';
-
-                confirmPasswordMatchError.style.display = 'block';
-
-                confirmPasswordInput.classList.remove('is-valid');
-                confirmPasswordInput.classList.add('is-invalid');
-
-                status_k_password = false;
-                checkBtnSubmit()
-
-                if (wrongEmailOrPasswordError) {
-                    wrongEmailOrPasswordError.style.display = 'none';
-                }
-
-            } else {
-                passwordLengthError.style.display = 'none';
-                passwordEmptyError.style.display = 'none';
-
-                confirmPasswordLengthError.style.display = 'none';
-
-                confirmPasswordEmptyError.style.display = 'none';
-
-                confirmPasswordMatchError.style.display = 'none';
-
-                confirmPasswordInput.classList.remove('is-invalid');
-                confirmPasswordInput.classList.add('is-valid');
-
-                status_k_password = true;
-                checkBtnSubmit()
-
-                if (wrongEmailOrPasswordError) {
-                    wrongEmailOrPasswordError.style.display = 'none';
-                }
-            }
-
-        });
-    </script>
-
-    {{-- term condition --}}
-    <script>
-        document.getElementById('acceptTerms').addEventListener('change', function() {
-            // Cek apakah checkbox terms dicentang
-            if (this.checked) {
-                status_term = true;
-                checkBtnSubmit()
-            } else {
-                status_term = false
-                checkBtnSubmit()
-            }
-        });
     </script>
 
     <!-- Vendor JS Files -->
