@@ -82,7 +82,7 @@
 
         <div class="container">
             <div class="copyright">
-                &copy; <strong><span>Secure Notes</span></strong> 2023
+                &copy; Secure Notes 2023
             </div>
             {{-- <div class="credits">
                 Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
