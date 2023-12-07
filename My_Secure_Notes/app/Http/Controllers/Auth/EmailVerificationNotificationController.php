@@ -14,14 +14,22 @@ class EmailVerificationNotificationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
+
     public function store(Request $request)
     {
+
         if ($request->user()->hasVerifiedEmail()) {
             return redirect()->intended(RouteServiceProvider::HOME);
         }
 
-        $request->user()->sendEmailVerificationNotification();
-
-        return back()->with('status', 'verification-link-sent');
+        // Kirim email verifikasi
+        try {
+            $request->user()->sendEmailVerificationNotification();
+            return back()->with('status', 'verification-link-sent');
+        } catch (\Throwable $e) {
+            // Jika pengiriman gagal, kembalikan ke view dengan pesan error
+            return back()->with('error', true);
+            // throw $e;
+        }
     }
 }

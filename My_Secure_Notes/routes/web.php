@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,15 +22,14 @@ Route::get('/x', function () {
     return view('x');
 });
 
-// Route::get('/register', [RegisteredUserController::class, 'create'])
-//     ->middleware('guest')
-//     ->name('register');
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Route::get('/dashboard', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
 
-// Route::post('/register', [RegisteredUserController::class, 'store'])
-//     ->middleware('guest');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 require __DIR__ . '/auth.php';

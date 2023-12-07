@@ -39,6 +39,7 @@ class Kernel extends HttpKernel
 
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             // \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+            // \Illuminate\Routing\Middleware\ThrottleRequests::class,
         ],
 
         'api' => [
