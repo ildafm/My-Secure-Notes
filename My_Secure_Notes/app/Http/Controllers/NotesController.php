@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notes;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class NotesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +15,9 @@ class DashboardController extends Controller
     public function index()
     {
         //
-
-        $title = 'Dashboard';
-        $active = 'dashboard';
-        return view('master.dashboard')
+        $title = 'Catatan';
+        $active = 'catatan';
+        return view('notes.index')
             ->with('title', $title)
             ->with('active', $active);
     }
@@ -46,10 +46,10 @@ class DashboardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Notes  $notes
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Notes $notes)
     {
         //
     }
@@ -57,10 +57,10 @@ class DashboardController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Notes  $notes
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Notes $notes)
     {
         //
     }
@@ -69,10 +69,10 @@ class DashboardController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Notes  $notes
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Notes $notes)
     {
         //
     }
@@ -80,10 +80,10 @@ class DashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Notes  $notes
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Notes $notes)
     {
         //
     }
