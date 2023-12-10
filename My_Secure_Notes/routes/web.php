@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MyBooksController;
 use App\Http\Controllers\NotesController;
 
 /*
@@ -26,6 +27,7 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('notes', NotesController::class);
+    Route::resource('my-books', MyBooksController::class);
 });
 
 

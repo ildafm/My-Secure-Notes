@@ -22,7 +22,6 @@
     <!-- Vendor CSS Files -->
     <link href="../template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="../template/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="../template/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link href="../template/vendor/quill/quill.snow.css" rel="stylesheet">
     <link href="../template/vendor/quill/quill.bubble.css" rel="stylesheet">
     <link href="../template/vendor/remixicon/remixicon.css" rel="stylesheet">
@@ -40,7 +39,7 @@
   ======================================================== -->
 </head>
 
-<body>
+<body {{-- oncontextmenu="return false;" --}}>
 
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
@@ -303,16 +302,16 @@
             <li class="nav-heading">notes</li>
 
             <li class="nav-item">
-                <a class="nav-link {{ $active === 'catatan' ? '' : 'collapsed' }}" href="/notes">
+                <a class="nav-link {{ $active === 'notes' ? '' : 'collapsed' }}" href="/notes">
                     <i class="bi bi-journal-bookmark"></i>
-                    <span>Catatan</span>
+                    <span>Notes</span>
                 </a>
             </li><!-- End Catatan Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link {{ $active === 'my-books' ? '' : 'collapsed' }}" href="/my-books">
                     <i class="bi bi-journals"></i>
-                    <span>Semua Catatan</span>
+                    <span>My Books</span>
                 </a>
             </li><!-- End Semua Catatan Page Nav -->
 
@@ -348,6 +347,24 @@
             Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
         </div> --}}
     </footer><!-- End Footer -->
+
+    {{-- script untuk mencegah ctrl + i, j, atau u --}}
+    <script type="text/javascript">
+        document.onkeydown = function(e) {
+            if (event.keyCode == 123) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                return false;
+            }
+        }
+    </script>
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>

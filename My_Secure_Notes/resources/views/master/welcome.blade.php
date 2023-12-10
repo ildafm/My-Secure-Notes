@@ -37,8 +37,8 @@
     <header id="header" class="fixed-top d-flex align-items-center">
         <div class="container d-flex align-items-center">
 
-            <div class="logo me-auto">
-                <h1><a href="index.html">Secure Notes</a></h1>
+            <div class="logo me-auto" style="">
+                <h1><a href="/dashboard">Secure Notes</a></h1>
             </div>
 
             <nav id="navbar" class="navbar order-last order-lg-0">

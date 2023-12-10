@@ -16,8 +16,8 @@ class CreateNotesTable extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
-            $table->string('theme');
-            $table->string('content', 600); // tipe varchar dengan batasan 600 karakter
+            $table->string('theme', 100);
+            $table->string('content', 700); // tipe varchar dengan batasan 500 karakter
             $table->unsignedBigInteger('user_id'); // Kolom untuk relasi ke tabel users
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
