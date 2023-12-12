@@ -45,7 +45,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="/dashboard" class="logo d-flex align-items-center">
+            <a href="/notes" class="logo d-flex align-items-center">
                 <img src="../template/img/logo.png" alt="">
                 <span class="d-none d-lg-block">Secure Notes</span>
             </a>
@@ -62,170 +62,85 @@
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
 
-                <li class="nav-item d-block d-lg-none">
-                    <a class="nav-link nav-icon search-bar-toggle " href="#">
-                        <i class="bi bi-search"></i>
-                    </a>
-                </li><!-- End Search Icon-->
-
-                <li class="nav-item dropdown">
-
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                        <i class="bi bi-bell"></i>
-                        <span class="badge bg-primary badge-number">4</span>
-                    </a><!-- End Notification Icon -->
-
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-                        <li class="dropdown-header">
-                            You have 4 new notifications
-                            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-exclamation-circle text-warning"></i>
-                            <div>
-                                <h4>Lorem Ipsum</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>30 min. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-x-circle text-danger"></i>
-                            <div>
-                                <h4>Atque rerum nesciunt</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>1 hr. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-check-circle text-success"></i>
-                            <div>
-                                <h4>Sit rerum fuga</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>2 hrs. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-info-circle text-primary"></i>
-                            <div>
-                                <h4>Dicta reprehenderit</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>4 hrs. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li class="dropdown-footer">
-                            <a href="#">Show all notifications</a>
-                        </li>
-
-                    </ul><!-- End Notification Dropdown Items -->
-
-                </li><!-- End Notification Nav -->
-
-                <li class="nav-item dropdown">
-
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                        <i class="bi bi-chat-left-text"></i>
-                        <span class="badge bg-success badge-number">3</span>
-                    </a><!-- End Messages Icon -->
-
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-                        <li class="dropdown-header">
-                            You have 3 new messages
-                            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="message-item">
-                            <a href="#">
-                                <img src="../template/img/messages-1.jpg" alt="" class="rounded-circle">
-                                <div>
-                                    <h4>Maria Hudson</h4>
-                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                    <p>4 hrs. ago</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="message-item">
-                            <a href="#">
-                                <img src="../template/img/messages-2.jpg" alt="" class="rounded-circle">
-                                <div>
-                                    <h4>Anna Nelson</h4>
-                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                    <p>6 hrs. ago</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="message-item">
-                            <a href="#">
-                                <img src="../template/img/messages-3.jpg" alt="" class="rounded-circle">
-                                <div>
-                                    <h4>David Muldon</h4>
-                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                    <p>8 hrs. ago</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="dropdown-footer">
-                            <a href="#">Show all messages</a>
-                        </li>
-
-                    </ul><!-- End Messages Dropdown Items -->
-
-                </li><!-- End Messages Nav -->
-
                 <li class="nav-item dropdown pe-3">
 
+                    {{-- user in navbar --}}
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
                         <img src="../template/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">
+                            @php
+                                // Memecah nama menjadi kata-kata
+                                $nameParts = explode(' ', Auth::user()->name);
+
+                                // Mengambil huruf pertama dari setiap kata
+                                $formattedName = '';
+                                for ($i = 0; $i < count($nameParts); $i++) {
+                                    $formattedName .= strtoupper(substr($nameParts[$i], 0, 1)) . '. ';
+
+                                    if ($i == count($nameParts) - 2) {
+                                        $temp = '';
+                                        $split_the_last_name = str_split($nameParts[$i + 1]);
+
+                                        for ($j = 0; $j < count($split_the_last_name); $j++) {
+                                            if ($j == 0) {
+                                                $temp .= strtoupper($split_the_last_name[$j]);
+                                            } else {
+                                                $temp .= $split_the_last_name[$j];
+                                            }
+                                        }
+                                        $formattedName .= $temp;
+                                        break;
+                                    }
+                                }
+                                echo $formattedName;
+                            @endphp
+                        </span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        {{-- name and level --}}
                         <li class="dropdown-header">
-                            <h6>Kevin Anderson</h6>
-                            <span>Web Designer</span>
+                            <h6>
+                                @php
+                                    // Memecah nama menjadi kata-kata
+                                    $nameParts = explode(' ', Auth::user()->name);
+
+                                    // Mengambil huruf pertama dari setiap kata
+                                    $formattedFullName = '';
+
+                                    for ($i = 0; $i < count($nameParts); $i++) {
+                                        $split_current_word = str_split($nameParts[$i]);
+                                        $temp = '';
+
+                                        for ($j = 0; $j < count($split_current_word); $j++) {
+                                            if ($j == 0) {
+                                                $temp .= strtoupper($split_current_word[$j]);
+                                            } else {
+                                                $temp .= $split_current_word[$j];
+                                            }
+                                        }
+
+                                        $formattedFullName .= $temp . ' ';
+                                    }
+                                    echo $formattedFullName;
+                                @endphp
+                            </h6>
+                            <span>
+                                @if (Auth::user()->level == 'A')
+                                    Admin
+                                @else
+                                    User
+                                @endif
+                            </span>
                         </li>
+
+                        {{-- divider --}}
                         <li>
                             <hr class="dropdown-divider">
                         </li>
 
+                        {{-- profile --}}
                         <li>
                             <a class="dropdown-item d-flex align-items-center"
                                 href="{{ route('profile', ['id' => Auth::user()->id]) }}">
@@ -233,26 +148,7 @@
                                 <span>My Profile</span>
                             </a>
                         </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
 
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <i class="bi bi-gear"></i>
-                                <span>Account Settings</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <i class="bi bi-question-circle"></i>
-                                <span>Need Help?</span>
-                            </a>
-                        </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -286,22 +182,7 @@
 
         <ul class="sidebar-nav" id="sidebar-nav">
 
-            <li class="nav-item">
-                <a class="nav-link {{ $active == 'dashboard' ? '' : 'collapsed' }}" href="/dashboard">
-                    <i class="bi bi-grid"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link {{ $active == 'profile' ? '' : 'collapsed' }}"
-                    href="{{ route('profile', ['id' => Auth::user()->id]) }}">
-                    <i class="bi bi-person"></i>
-                    <span>Profile</span>
-                </a>
-            </li><!-- End Profile Page Nav -->
-
-            <li class="nav-heading">notes</li>
+            <li class="nav-heading">notes page</li>
 
             <li class="nav-item">
                 <a class="nav-link {{ $active === 'notes' ? '' : 'collapsed' }}" href="/notes">
@@ -317,17 +198,26 @@
                 </a>
             </li><!-- End Semua Catatan Page Nav -->
 
+            <li class="nav-heading">profile page</li>
+
+            <li class="nav-item">
+                <a class="nav-link {{ $active == 'profile' ? '' : 'collapsed' }}"
+                    href="{{ route('profile', ['id' => Auth::user()->id]) }}">
+                    <i class="bi bi-person"></i>
+                    <span>Profile</span>
+                </a>
+            </li><!-- End Profile Page Nav -->
+
             @if (Auth::user()->level === 'A')
                 <li class="nav-heading">admin Page</li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ $active === 'my-books' ? '' : 'collapsed' }}" href="/users">
+                    <a class="nav-link {{ $active === 'users' ? '' : 'collapsed' }}" href="/users">
                         <i class="bi bi-people"></i>
                         <span>Users</span>
                     </a>
                 </li><!-- End Catatan Page Nav -->
             @endif
-
 
         </ul>
 

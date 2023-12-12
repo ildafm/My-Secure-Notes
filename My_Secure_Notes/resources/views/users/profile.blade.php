@@ -19,14 +19,31 @@
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
                         <img src="../template/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <h2>{{ $user_profile->name }}</h2>
-                        {{-- <h3>Web Designer</h3> --}}
-                        {{-- <div class="social-links mt-2">
-                            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-                        </div> --}}
+                        <h2 class="text-center">
+                            @php
+                                // Memecah nama menjadi kata-kata
+                                $nameParts = explode(' ', $user_profile->name);
+
+                                // Mengambil huruf pertama dari setiap kata
+                                $formattedFullName = '';
+
+                                for ($i = 0; $i < count($nameParts); $i++) {
+                                    $split_current_word = str_split($nameParts[$i]);
+                                    $temp = '';
+
+                                    for ($j = 0; $j < count($split_current_word); $j++) {
+                                        if ($j == 0) {
+                                            $temp .= strtoupper($split_current_word[$j]);
+                                        } else {
+                                            $temp .= $split_current_word[$j];
+                                        }
+                                    }
+
+                                    $formattedFullName .= $temp . ' ';
+                                }
+                                echo $formattedFullName;
+                            @endphp
+                        </h2>
                     </div>
                 </div>
 

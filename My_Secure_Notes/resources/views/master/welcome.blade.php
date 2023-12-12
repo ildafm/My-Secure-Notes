@@ -38,13 +38,13 @@
         <div class="container d-flex align-items-center">
 
             <div class="logo me-auto" style="">
-                <h1><a href="/dashboard">Secure Notes</a></h1>
+                <h1><a href="/notes">Secure Notes</a></h1>
             </div>
 
             <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
                     @if (Auth::user())
-                        <li><a class="nav-link scrollto" href="/dashboard">Dashboard</a></li>
+                        <li><a class="nav-link scrollto" href="/notes">Notes</a></li>
                     @else
                         <li><a class="nav-link scrollto" href="/login">Login</a></li>
                         <li><a class="nav-link scrollto " href="/register">Register</a></li>
