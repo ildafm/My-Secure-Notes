@@ -32,6 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('my-books', MyBooksController::class);
     Route::resource('users', UserController::class);
     Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile/edit/{user_id}/{edit_mode}', [ProfileController::class, 'update'])->name('profile_edit');
 });
 
 
