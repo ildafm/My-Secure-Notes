@@ -9,7 +9,3 @@ Buka terminal
 2. Ketikan "cp .env.example .env" untuk membuat file env (konfigurasi file env minta langsung di Fadli)
 3. Ketikkan "php artisan key:generate" untuk generate key
 4. Jalankan dengan "php artisan serve"
-5. Jika error saat menjalankan aplikasi terkait Firebase atau Kreait, lakukan ini:
-
-Buka terminal
-Ketik "composer require kreait/laravel-firebase --with-all-dependencies"
