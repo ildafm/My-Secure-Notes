@@ -227,7 +227,8 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
+                            <a class="dropdown-item d-flex align-items-center"
+                                href="{{ route('profile', ['id' => Auth::user()->id]) }}">
                                 <i class="bi bi-person"></i>
                                 <span>My Profile</span>
                             </a>
@@ -293,7 +294,8 @@
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link {{ $active == 'profile' ? '' : 'collapsed' }}" href="#">
+                <a class="nav-link {{ $active == 'profile' ? '' : 'collapsed' }}"
+                    href="{{ route('profile', ['id' => Auth::user()->id]) }}">
                     <i class="bi bi-person"></i>
                     <span>Profile</span>
                 </a>
@@ -319,7 +321,7 @@
                 <li class="nav-heading">admin Page</li>
 
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#">
+                    <a class="nav-link {{ $active === 'my-books' ? '' : 'collapsed' }}" href="/users">
                         <i class="bi bi-people"></i>
                         <span>Users</span>
                     </a>
