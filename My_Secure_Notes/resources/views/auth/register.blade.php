@@ -70,8 +70,7 @@
                                             <input type="text" name="name" class="form-control" id="yourName"
                                                 value="{{ old('name') }}" required autofocus maxlength="255"
                                                 placeholder="Username, maximal 255 karakter">
-                                            <div class="invalid-feedback" id="nameEmptyError">Username tidak boleh
-                                                kosong
+                                            <div class="invalid-feedback" id="nameErrorMessage">Error Message
                                             </div>
                                         </div>
 
@@ -83,12 +82,8 @@
                                                 value="{{ old('email') }}" placeholder="Email, maximal 255 karakter"
                                                 required>
 
-                                            <div class="invalid-feedback" id="emailEmptyError" style="display: none;">
-                                                Kolom email tidak boleh kosong.
-                                            </div>
-                                            <div class="invalid-feedback" id="emailNotValidError"
-                                                style="display: none;">Silahkan masukan
-                                                alamat email yang valid.
+                                            <div class="invalid-feedback" id="emailErrorMessage" style="display: none;">
+                                                Error Message
                                             </div>
 
                                             @error('email')
@@ -103,13 +98,10 @@
                                             <label for="yourPassword" class="form-label">Password</label>
                                             <input type="password" name="password" maxlength="255" class="form-control"
                                                 placeholder="Password, maximal 255 karakter" id="yourPassword" required>
-                                            <div class="invalid-feedback" id="passwordEmptyError">
-                                                Kolom password tidak boleh kosong.
+                                            <div class="invalid-feedback" id="passwordErrorMessage">
+                                                Error Message.
                                             </div>
-                                            <div class="invalid-feedback" id="passwordLengthError"
-                                                style="display: none;">
-                                                Password tidak boleh kurang dari 8 karakter.
-                                            </div>
+
                                         </div>
 
                                         {{-- kolom konfirmasi password --}}
@@ -119,16 +111,8 @@
                                             <input type="password" name="password_confirmation" class="form-control"
                                                 maxlength="255" id="yourPasswordCofirmation"
                                                 placeholder="Ketikan ulang password anda" required>
-                                            <div class="invalid-feedback" id="k_passwordEmptyError">
-                                                Kolom konfirmasi password tidak boleh kosong.
-                                            </div>
-                                            <div class="invalid-feedback" id="k_passwordLengthError"
-                                                style="display: none;">
-                                                Konfirmasi password tidak boleh kurang dari 8 karakter.
-                                            </div>
-                                            <div class="invalid-feedback" id="k_passwordMatchError"
-                                                style="display: none;">
-                                                Konfirmasi password harus sama dengan password anda.
+                                            <div class="invalid-feedback" id="confirmPasswordErrorMessage">
+                                                Error Message.
                                             </div>
                                         </div>
 
@@ -194,7 +178,7 @@
     {{-- username error message --}}
     <script>
         var nameInput = document.getElementById('yourName');
-        var nameEmptyError = document.getElementById('nameEmptyError');
+        var nameErrorMessage = document.getElementById('nameErrorMessage');
 
         // name error message management
         nameInput.addEventListener('input', function() {
@@ -202,7 +186,9 @@
 
             // Cek jika name kosong
             if (name.trim() === '') {
-                nameEmptyError.style.display = 'block';
+                let pesanError = 'Username tidak boleh kosong'
+                nameErrorMessage.style.display = 'block';
+                nameErrorMessage.innerText = pesanError;
 
                 nameInput.classList.remove('is-valid');
                 nameInput.classList.add('is-invalid');
@@ -210,7 +196,7 @@
                 status_username = false;
                 checkBtnSubmit();
             } else {
-                nameEmptyError.style.display = 'none';
+                nameErrorMessage.style.display = 'none';
 
                 nameInput.classList.remove('is-invalid');
                 nameInput.classList.add('is-valid');
@@ -231,19 +217,15 @@
     {{-- email error message --}}
     <script>
         var emailInput = document.getElementById('yourEmail');
-        var emailEmptyError = document.getElementById('emailEmptyError');
-        var emailNotValidError = document.getElementById('emailNotValidError');
+        var emailErrorMessage = document.getElementById('emailErrorMessage');
 
         // email error message management
         emailInput.addEventListener('input', function() {
             var email = this.value;
-
             // Cek jika email kosong
             if (email.trim() === '') {
-
-                emailEmptyError.style.display = 'block';
-
-                emailNotValidError.style.display = 'none';
+                emailErrorMessage.style.display = 'block';
+                emailErrorMessage.innerText = 'Email tidak boleh kosong'
 
                 emailInput.classList.remove('is-valid');
                 emailInput.classList.add('is-invalid');
@@ -253,9 +235,8 @@
 
                 wrongEmailOrPasswordError.style.display = 'none';
             } else if (!isValidEmail(email)) {
-                emailEmptyError.style.display = 'none';
-
-                emailNotValidError.style.display = 'block';
+                emailErrorMessage.style.display = 'block';
+                emailErrorMessage.innerText = 'Masukan alamat email yang valid'
 
                 emailInput.classList.remove('is-valid');
                 emailInput.classList.add('is-invalid');
@@ -269,9 +250,7 @@
 
             } else {
 
-                emailEmptyError.style.display = 'none';
-
-                emailNotValidError.style.display = 'none';
+                emailErrorMessage.style.display = 'none';
 
                 emailInput.classList.remove('is-invalid');
                 emailInput.classList.add('is-valid');
@@ -297,12 +276,15 @@
     {{-- password error massage --}}
     <script>
         var passwordInput = document.getElementById('yourPassword');
-        var passwordLengthError = document.getElementById('passwordLengthError');
-        var passwordEmptyError = document.getElementById('passwordEmptyError');
+        var passwordErrorMessage = document.getElementById('passwordErrorMessage');
+        var confirmPasswordErrorMessage = document.getElementById('confirmPasswordErrorMessage');
 
-        var confirmPasswordLengthError = document.getElementById('k_passwordLengthError');
-        var confirmPasswordEmptyError = document.getElementById('k_passwordEmptyError');
-        var confirmPasswordMatchError = document.getElementById('k_passwordMatchError');
+        // var passwordLengthError = document.getElementById('passwordLengthError');
+        // var passwordEmptyError = document.getElementById('passwordEmptyError');
+
+        // var confirmPasswordLengthError = document.getElementById('k_passwordLengthError');
+        // var confirmPasswordEmptyError = document.getElementById('k_passwordEmptyError');
+        // var confirmPasswordMatchError = document.getElementById('k_passwordMatchError');
 
 
         // password error message management
@@ -313,9 +295,12 @@
             // Cek jika password kosong
             if (password.trim() === '') {
 
-                passwordEmptyError.style.display = 'block';
+                passwordErrorMessage.style.display = 'block';
+                passwordErrorMessage.innerText = 'Password tidak boleh kosong';
 
-                passwordLengthError.style.display = 'none';
+                // passwordEmptyError.style.display = 'block';
+
+                // passwordLengthError.style.display = 'none';
 
                 passwordInput.classList.remove('is-valid');
                 passwordInput.classList.add('is-invalid');
@@ -328,10 +313,12 @@
                 }
 
             } else if (password.length < 8) {
+                passwordErrorMessage.style.display = 'block';
+                passwordErrorMessage.innerText = 'Password tidak boleh kurang dari 8 karakter';
 
-                passwordEmptyError.style.display = 'none';
+                // passwordEmptyError.style.display = 'none';
 
-                passwordLengthError.style.display = 'block';
+                // passwordLengthError.style.display = 'block';
 
                 passwordInput.classList.remove('is-valid');
                 passwordInput.classList.add('is-invalid');
@@ -344,9 +331,10 @@
                 }
 
             } else {
-                passwordEmptyError.style.display = 'none';
+                passwordErrorMessage.style.display = 'none';
 
-                passwordLengthError.style.display = 'none';
+                // passwordEmptyError.style.display = 'none';
+                // passwordLengthError.style.display = 'none';
 
                 passwordInput.classList.remove('is-invalid');
                 passwordInput.classList.add('is-valid');
@@ -361,11 +349,8 @@
             // jika password diubah setelah mengisi konfirmasi password
             if (confirmPasswordInput.value != password) {
 
-                confirmPasswordLengthError.style.display = 'none';
-
-                confirmPasswordEmptyError.style.display = 'none';
-
-                confirmPasswordMatchError.style.display = 'block';
+                confirmPasswordErrorMessage.style.display = 'block';
+                confirmPasswordErrorMessage.innerText = 'Konfirmasi password harus sama dengan password anda';
 
                 confirmPasswordInput.classList.remove('is-valid');
                 confirmPasswordInput.classList.add('is-invalid');
@@ -380,27 +365,17 @@
     {{-- confirm password error massage --}}
     <script>
         var confirmPasswordInput = document.getElementById('yourPasswordCofirmation');
-        var confirmPasswordLengthError = document.getElementById('k_passwordLengthError');
-        var confirmPasswordEmptyError = document.getElementById('k_passwordEmptyError');
-        var confirmPasswordMatchError = document.getElementById('k_passwordMatchError');
-
-        var passwordLengthError = document.getElementById('passwordLengthError');
-        var passwordEmptyError = document.getElementById('passwordEmptyError');
+        var confirmPasswordErrorMessage = document.getElementById('confirmPasswordErrorMessage');
 
         // password error message management
         confirmPasswordInput.addEventListener('input', function() {
             var password = document.getElementById('yourPassword');
 
-            var confirm_password = this.value;
+            var confirmPassword = this.value;
 
-            // Cek jika password kosong
-            if (confirm_password.trim() === '') {
-
-                confirmPasswordLengthError.style.display = 'none';
-
-                confirmPasswordEmptyError.style.display = 'block';
-
-                confirmPasswordMatchError.style.display = 'none';
+            if (confirmPassword != password.value) {
+                confirmPasswordErrorMessage.style.display = 'block';
+                confirmPasswordErrorMessage.innerText = 'Konfirmasi password harus sama dengan password anda';
 
                 confirmPasswordInput.classList.remove('is-valid');
                 confirmPasswordInput.classList.add('is-invalid');
@@ -411,52 +386,8 @@
                 if (wrongEmailOrPasswordError) {
                     wrongEmailOrPasswordError.style.display = 'none';
                 }
-
-            } else if (confirm_password.length < 8) {
-
-                confirmPasswordLengthError.style.display = 'block';
-
-                confirmPasswordEmptyError.style.display = 'none';
-
-                confirmPasswordMatchError.style.display = 'none';
-
-                confirmPasswordInput.classList.remove('is-valid');
-                confirmPasswordInput.classList.add('is-invalid');
-
-                status_k_password = false;
-                checkBtnSubmit()
-
-                if (wrongEmailOrPasswordError) {
-                    wrongEmailOrPasswordError.style.display = 'none';
-                }
-
-            } else if (confirm_password != password.value) {
-
-                confirmPasswordLengthError.style.display = 'none';
-
-                confirmPasswordEmptyError.style.display = 'none';
-
-                confirmPasswordMatchError.style.display = 'block';
-
-                confirmPasswordInput.classList.remove('is-valid');
-                confirmPasswordInput.classList.add('is-invalid');
-
-                status_k_password = false;
-                checkBtnSubmit()
-
-                if (wrongEmailOrPasswordError) {
-                    wrongEmailOrPasswordError.style.display = 'none';
-                }
-
             } else {
-                passwordLengthError.style.display = 'none';
-                passwordEmptyError.style.display = 'none';
-
-                confirmPasswordLengthError.style.display = 'none';
-
-                confirmPasswordEmptyError.style.display = 'none';
-
-                confirmPasswordMatchError.style.display = 'none';
+                confirmPasswordErrorMessage.style.display = 'none';
 
                 confirmPasswordInput.classList.remove('is-invalid');
                 confirmPasswordInput.classList.add('is-valid');
@@ -467,6 +398,7 @@
                 if (wrongEmailOrPasswordError) {
                     wrongEmailOrPasswordError.style.display = 'none';
                 }
+
             }
 
         });
